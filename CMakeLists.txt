@@ -2,10 +2,17 @@
 # Released under GNU AGPL v3
 # License: https://www.gnu.org/licenses/agpl-3.0.html
 
-CollectSourceFiles(
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-    PRIVATE_SOURCES
-)
+if(COMMAND CollectSourceFiles)
+    CollectSourceFiles(
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        PRIVATE_SOURCES
+    )
+else()
+    file(GLOB_RECURSE PRIVATE_SOURCES
+        CONFIGURE_DEPENDS
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+    )
+endif()
 
 if (SCRIPTS)
     target_sources(game
