@@ -122,7 +122,7 @@ private:
     // adjust the call below — the pattern itself is standard.
     static void BroadcastToGMs(const std::string& msg)
     {
-        SessionMap const& sessions = sWorld->GetAllSessions();
+        auto const& sessions = sWorld->GetAllSessions();
         for (auto const& [accountId, session] : sessions)
         {
             if (!session)

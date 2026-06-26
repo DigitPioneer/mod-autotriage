@@ -1,4 +1,5 @@
 #include "Chat.h"
+#include "ChatCommand.h"
 #include "Config.h"
 #include "DatabaseEnv.h"
 #include "Player.h"
@@ -37,6 +38,8 @@ static const char* PriorityName(uint8 p)
     }
 }
 
+using ChatCommandTable = Acore::ChatCommands::ChatCommandTable;
+
 // ---------------------------------------------------------------------------
 // CommandScript
 //
@@ -57,16 +60,16 @@ public:
     {
         static ChatCommandTable sub =
         {
-            { "list",        SEC_GAMEMASTER, false, &HandleList,        "" },
-            { "info",        SEC_GAMEMASTER, false, &HandleInfo,        "" },
-            { "assign",      SEC_GAMEMASTER, false, &HandleAssign,      "" },
-            { "setpriority", SEC_GAMEMASTER, false, &HandleSetPriority, "" },
-            { "stats",       SEC_GAMEMASTER, false, &HandleStats,       "" },
+            { "list",        &HandleList,        SEC_GAMEMASTER, Acore::ChatCommands::Console::No },
+            { "info",        &HandleInfo,        SEC_GAMEMASTER, Acore::ChatCommands::Console::No },
+            { "assign",      &HandleAssign,      SEC_GAMEMASTER, Acore::ChatCommands::Console::No },
+            { "setpriority", &HandleSetPriority, SEC_GAMEMASTER, Acore::ChatCommands::Console::No },
+            { "stats",       &HandleStats,       SEC_GAMEMASTER, Acore::ChatCommands::Console::No },
         };
 
         static ChatCommandTable root =
         {
-            { "triage", SEC_GAMEMASTER, false, nullptr, "", sub },
+            { "triage", sub },
         };
 
         return root;
@@ -222,9 +225,7 @@ public:
             return true;
         }
 
-        // sTicketMgr is defined in TicketMgr.h as TicketMgr::instance().
-        // If GetGmTicketById is named differently in your fork, check TicketMgr.h.
-        GmTicket* ticket = sTicketMgr->GetGmTicketById(ticketId);
+        GmTicket* ticket = sTicketMgr->GetTicket(ticketId);
         if (!ticket || ticket->IsClosed())
         {
             handler->PSendSysMessage("[Triage] Ticket #%u not found or already closed.", ticketId);
