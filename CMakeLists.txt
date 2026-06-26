@@ -15,20 +15,28 @@ else()
 endif()
 
 if (SCRIPTS)
-    target_sources(game
-        PRIVATE
-            ${PRIVATE_SOURCES}
-    )
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-    if (BUILD_SHARED_LIBS)
-        target_include_directories(game
-            PUBLIC
-                ${CMAKE_CURRENT_SOURCE_DIR}/src
-        )
-    else()
-        target_include_directories(game
+    if(COMMAND AC_ADD_SCRIPT)
+        foreach(source_file ${PRIVATE_SOURCES})
+            AC_ADD_SCRIPT(${source_file})
+        endforeach()
+    elseif(TARGET game)
+        target_sources(game
             PRIVATE
-                ${CMAKE_CURRENT_SOURCE_DIR}/src
+                ${PRIVATE_SOURCES}
         )
+
+        if (BUILD_SHARED_LIBS)
+            target_include_directories(game
+                PUBLIC
+                    ${CMAKE_CURRENT_SOURCE_DIR}/src
+            )
+        else()
+            target_include_directories(game
+                PRIVATE
+                    ${CMAKE_CURRENT_SOURCE_DIR}/src
+            )
+        endif()
     endif()
 endif()
