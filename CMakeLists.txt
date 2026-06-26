@@ -14,6 +14,10 @@ else()
     )
 endif()
 
+if (NOT TARGET modules)
+    return()
+endif()
+
 if (SCRIPTS)
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 
