@@ -1,0 +1,58 @@
+################################################################################
+# mod-autotriage — GM Ticket Auto-Triage Configuration
+#
+# Copy this file to your worldserver config directory as AutoTriage.conf
+# (remove the .dist extension).
+################################################################################
+
+[WorldServer]
+
+###############################################################################
+# AutoTriage.Enable
+#   Master switch for the module.
+#   Default: 1
+AutoTriage.Enable = 1
+
+###############################################################################
+# AutoTriage.SendAutoReply
+#   Send an instant acknowledgement to the player who opened the ticket.
+#   The message appears in their chat as a system message.
+#   Only sent if the player is online at the moment the ticket is created.
+#   Default: 1
+AutoTriage.SendAutoReply = 1
+
+###############################################################################
+# Category-specific reply messages
+#   Override the built-in defaults here.
+#
+# Classification categories:
+#   BUG      — likely a gameplay defect (priority HIGH or CRITICAL)
+#   ABUSE    — harassment, cheating, botting (priority HIGH)
+#   QUESTION — general player question (priority LOW)
+#   OTHER    — none of the above (priority MEDIUM)
+#
+AutoTriage.Reply.Bug      = "[Support] Your bug report has been received (Priority: HIGH). A GM will investigate shortly."
+AutoTriage.Reply.Abuse    = "[Support] Your misconduct report has been received. Our GM team will review it promptly."
+AutoTriage.Reply.Question = "[Support] Thank you for your question. A GM will assist you as soon as possible."
+AutoTriage.Reply.Other    = "[Support] Your ticket has been received and is queued for GM review."
+
+###############################################################################
+# GM Escalation — periodic ping to online GMs about stale high-priority tickets
+#
+# AutoTriage.GmPingInterval
+#   How often (in seconds) the module checks for unassigned escalation
+#   candidates.  Set to 0 to disable pings entirely.
+#   Default: 300  (5 minutes)
+AutoTriage.GmPingInterval = 300
+
+# AutoTriage.EscalateAfter.Critical
+#   Minutes an unassigned Priority 1 (Critical) ticket must be open before
+#   the module starts pinging online GMs.
+#   Default: 10
+AutoTriage.EscalateAfter.Critical = 10
+
+# AutoTriage.EscalateAfter.High
+#   Minutes an unassigned Priority 2 (High) ticket must be open before
+#   the module starts pinging online GMs.
+#   Default: 30
+AutoTriage.EscalateAfter.High = 30
