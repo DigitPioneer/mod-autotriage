@@ -60,11 +60,11 @@ public:
     {
         static ChatCommandTable sub =
         {
-            { "list",        &HandleList,        SEC_GAMEMASTER, Acore::ChatCommands::Console::No },
-            { "info",        &HandleInfo,        SEC_GAMEMASTER, Acore::ChatCommands::Console::No },
-            { "assign",      &HandleAssign,      SEC_GAMEMASTER, Acore::ChatCommands::Console::No },
-            { "setpriority", &HandleSetPriority, SEC_GAMEMASTER, Acore::ChatCommands::Console::No },
-            { "stats",       &HandleStats,       SEC_GAMEMASTER, Acore::ChatCommands::Console::No },
+            { "list",        HandleList,        SEC_GAMEMASTER, Acore::ChatCommands::Console::No },
+            { "info",        HandleInfo,        SEC_GAMEMASTER, Acore::ChatCommands::Console::No },
+            { "assign",      HandleAssign,      SEC_GAMEMASTER, Acore::ChatCommands::Console::No },
+            { "setpriority", HandleSetPriority, SEC_GAMEMASTER, Acore::ChatCommands::Console::No },
+            { "stats",       HandleStats,       SEC_GAMEMASTER, Acore::ChatCommands::Console::No },
         };
 
         static ChatCommandTable root =

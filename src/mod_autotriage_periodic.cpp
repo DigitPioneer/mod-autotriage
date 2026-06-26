@@ -5,6 +5,7 @@
 #include "ScriptMgr.h"
 #include "World.h"
 #include "WorldSession.h"
+#include "WorldSessionMgr.h"
 
 // ---------------------------------------------------------------------------
 // AutoTriagePeriodicScript
@@ -122,7 +123,7 @@ private:
     // adjust the call below — the pattern itself is standard.
     static void BroadcastToGMs(const std::string& msg)
     {
-        auto const& sessions = sWorld->GetAllSessions();
+        WorldSessionMgr::SessionMap const& sessions = sWorldSessionMgr->GetAllSessions();
         for (auto const& [accountId, session] : sessions)
         {
             if (!session)
